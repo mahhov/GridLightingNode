@@ -1,3 +1,4 @@
+let lightFunctionInput;
 let ctx;
 
 let canvasWidth = 950, canvasHeight = 950;
@@ -17,10 +18,14 @@ let drawColors = [[238, 238, 238], [136, 136, 136], [51, 51, 221], [0, 85, 0], [
 let endpointOverlay = true, graphOverlay = true, pathOverlay = true;
 
 let initCanvas = () => {
+    lightFunctionInput = document.getElementById('lightFunctionInput');
+    lightFunctionInput.value = lightingFunction.toString();
+
     let canvas = document.getElementById('myCanvas');
     ctx = canvas.getContext('2d');
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
+
     update();
 };
 
@@ -105,6 +110,11 @@ let setDraw = (value) => {
 
 let lightColor = (color, light) => {
     return _.map(color, (c) => {return c * light;});
+};
+
+let changeLightingFunction = () => {
+    setLightingFunction(lightFunctionInput.value);
+    update();
 };
 
 init();
