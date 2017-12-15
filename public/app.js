@@ -11,8 +11,9 @@ let mouseDown;
 let empty = 0, wall = 1, start = 2;
 let pathNode = 4, graphColor = 5;
 let draw = empty;
-                // emtpy   wall    start   path    graph
-let drawColors = ['#eee', '#888', '#33d', '#050', '#099'];
+                // emtpy            wall             start          path        graph
+                // #eee             #888             #33d           #050        #099
+let drawColors = [[238, 238, 238], [136, 136, 136], [51, 51, 221], [0, 85, 0], [0, 153, 153]];
 let endpointOverlay = true, graphOverlay = true, pathOverlay = true;
 
 let initCanvas = () => {
@@ -38,12 +39,6 @@ let initRectRand = (density) => {
         y: randInt(0, height)
     };
     setRect(startCoord, start);
-
-    goalCoord = {
-        x: randInt(0, width),
-        y: randInt(0, height)
-    };
-    setRect(goalCoord, goal);
 };
 
 initRectHouse = () => {
@@ -67,10 +62,10 @@ let init = () => {
 };
 
 let update = () => {
-    if (startCoord) {
-        //light = lightingMain(rect, startCoord);
-    }
-    refreshCanvas();
+    if (startCoord)
+        light = lightingMain(rect, startCoord);
+    if (light)
+        refreshCanvas();
 };
 
 let refreshCanvas = () => {
@@ -78,8 +73,9 @@ let refreshCanvas = () => {
     drawCanvasClear();
     _.each(rect, (column, x) => {
         _.each(column, (cell, y) => {
-            let color = cell === start ? empty : cell;
-            drawCanvasRect(createRect(x, y), drawColors[color], true);
+            let color = drawColors[cell === start ? empty : cell];
+            let lcolor = lightColor(color, light[x][y]);
+            drawCanvasRect(createRect(x, y), lcolor);
         });
     });
 
@@ -106,5 +102,9 @@ let setRect = (coord, value) => {
 let setDraw = (value) => {
     draw = value;
 }
+
+let lightColor = (color, light) => {
+    return _.map(color, (c) => {return c * light;});
+};
 
 init();
