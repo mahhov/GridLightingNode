@@ -33,6 +33,5 @@ let lightingMain = (map, source) => {
         });
     });
 
-
     return light;
 };
