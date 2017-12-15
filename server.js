@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const pgp = require('pg-promise')();
-const db = pgp(process.env.DATABASE_URL || 'postgres://manukhovanesian@localhost:5432/astar');
+const db = pgp(process.env.DATABASE_URL || 'postgres://manukhovanesian@localhost:5432/lighting');
 
 let incrementCount = () => {
     db.none('INSERT INTO visitor (date) VALUES (CURRENT_TIMESTAMP)').catch((err) => {

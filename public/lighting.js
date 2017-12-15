@@ -1,8 +1,9 @@
-let astarMain = (map, start, end) => {
+let lightingMain = (map, source) => {
     let width = map.length;
     let height = map[0].length;
     let graph;
     let openCount;
+    let sourceNode;
 
     let createGraphNodes = () => {
         graph = [];
@@ -33,15 +34,15 @@ let astarMain = (map, start, end) => {
                 let specialDownRight = (touchDownRight && !touchDown && !touchRight);
                 let specialDownLeft = (touchDownLeft && !touchDown && !touchLeft);
                 let special = specialUpRight || specialUpLeft || specialDownRight || specialDownLeft;
-                let side = x === 0 || x === width - 1 || y === 0 || y === height - 1;
 
                 if (!touchCurrent && special)
                     addNode(current);
             });
         });
+    };
 
-        start = addNode(start);
-        end = addNode(end);
+    let createSourceNode = () => {
+        sourcNode
     };
 
     let createGraphEdges = () => {
